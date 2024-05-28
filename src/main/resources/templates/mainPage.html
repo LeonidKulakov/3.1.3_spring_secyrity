@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 600px;
+        }
+
+        .main h3 {
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="main">
+    <th:block th:each="msg : ${messages}">
+        <h3 th:text="${msg}"></h3>
+    </th:block>
+    <form action="http://localhost:8080/add">
+        <button type="submit">
+            Добавить пользователя
+        </button>
+    </form>
+    <form action="http://localhost:8080/update">
+        <button type="submit">
+            Изменить данные пользователя
+        </button>
+    </form>
+    <form action="http://localhost:8080/delete">
+        <button type="submit">
+            Удалить пользователя
+        </button>
+    </form>
+</div>
+</body>
+</html>
