@@ -5,16 +5,24 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.util.List;
 
 
 @Controller
 
 public class MainController {
     private final UserService userService;
+    private RoleRepository roleRepository;
 
-    public MainController(UserService userService) {
+    public MainController(UserService userService, RoleRepository roleRepository) {
         this.userService = userService;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping(value = "test")
@@ -24,8 +32,16 @@ public class MainController {
     }
 
     @GetMapping(value = "add")
-    public String printAdd() {
-        return "add";
+    public ModelAndView newUser() {
+        User user = new User();
+        ModelAndView mav = new ModelAndView("add");
+        mav.addObject("user", user);
+
+        List<Role> roles = (List<Role>) roleRepository.findAll();
+
+        mav.addObject("allRoles", roles);
+
+        return mav;
     }
 
     @PostMapping(value = "add")
@@ -60,4 +76,6 @@ public class MainController {
         userService.delete(id);
         return "redirect:/test";
     }
+
+
 }

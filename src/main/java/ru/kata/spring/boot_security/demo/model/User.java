@@ -38,6 +38,7 @@ public class User {
         this.city = city;
     }
 
+
     public User(Long id, String username, Integer age, String city) {
         this.id = id;
         this.username = username;
@@ -75,6 +76,22 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

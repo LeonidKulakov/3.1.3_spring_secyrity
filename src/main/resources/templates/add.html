@@ -93,8 +93,25 @@
                 name="age"
                 required
         />
+        <label for="age"
+        >Пароль:</label>
+        <input
+                type="text"
+                id="password"
+                name="password"
+                required
+        />
+        <p>
+            <label>Roles:
+                <input type="checkbox" name="roles"
+                       th:each="role : ${allRoles}"
+                       th:text="${role.name}"
+                       th:value="${role.id}"
+                />
+            </label>
+        </p>
 
-        <button type="submit" >
+        <button type="submit">
             Добавить
         </button>
     </form>
@@ -104,6 +121,7 @@
             На основную страницу
         </button>
     </form>
+
 
 </div>
 </body>
