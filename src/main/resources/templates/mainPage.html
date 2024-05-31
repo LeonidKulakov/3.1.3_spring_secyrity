@@ -46,19 +46,26 @@
     <th:block th:each="msg : ${messages}">
         <h3 th:text="${msg}"></h3>
     </th:block>
-    <form action="http://localhost:8080/add">
+    <form action="http://localhost:8080/admin/add">
         <button type="submit">
             Добавить пользователя
         </button>
     </form>
-    <form action="http://localhost:8080/update">
+    <form action="http://localhost:8080/admin/update">
         <button type="submit">
             Изменить данные пользователя
         </button>
     </form>
-    <form action="http://localhost:8080/delete">
+    <form action="http://localhost:8080/admin/delete">
         <button type="submit">
             Удалить пользователя
+        </button>
+    </form>
+
+    </form>
+    <form action="http://localhost:8080/logout">
+        <button type="submit">
+            logout
         </button>
     </form>
 </div>

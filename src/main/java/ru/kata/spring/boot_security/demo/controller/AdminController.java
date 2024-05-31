@@ -1,30 +1,31 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
 
-
 @Controller
+@RequestMapping("/admin")
+public class AdminController {
 
-public class MainController {
     private final UserService userService;
-    private RoleRepository roleRepository;
+    private RoleService roleService;
 
-    public MainController(UserService userService, RoleRepository roleRepository) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
-
     @GetMapping(value = "test")
     public String printTest(ModelMap model) {
         model.addAttribute("messages", userService.listUsers());
@@ -37,7 +38,7 @@ public class MainController {
         ModelAndView mav = new ModelAndView("add");
         mav.addObject("user", user);
 
-        List<Role> roles = (List<Role>) roleRepository.findAll();
+        List<Role> roles = roleService.findAll();
 
         mav.addObject("allRoles", roles);
 
@@ -45,11 +46,9 @@ public class MainController {
     }
 
     @PostMapping(value = "add")
-    public String add(@RequestParam("username") String username,
-                      @RequestParam("city") String city,
-                      @RequestParam("age") Integer age) {
-        userService.add(username, age, city);
-        return "redirect:/test";
+    public String add(User user) {
+        userService.add(user);
+        return "redirect:/admin/test";
     }
 
     @GetMapping(value = "update")
@@ -63,7 +62,7 @@ public class MainController {
                          @RequestParam("age") Integer age,
                          @RequestParam("id") Long id) {
         userService.updateUser(username, age, city, id);
-        return "redirect:/test";
+        return "redirect:/admin/test";
     }
 
     @GetMapping(value = "delete")
@@ -73,8 +72,9 @@ public class MainController {
 
     @PostMapping(value = "delete")
     public String delete(@RequestParam("id") Long id) {
+        System.out.println(111);
         userService.delete(id);
-        return "redirect:/test";
+        return "redirect:/admin/test";
     }
 
 
