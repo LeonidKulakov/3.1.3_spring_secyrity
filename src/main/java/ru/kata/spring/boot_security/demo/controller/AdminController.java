@@ -27,13 +27,13 @@ public class AdminController {
         this.roleService = roleService;
     }
     @GetMapping(value = "test")
-    public String printTest(ModelMap model) {
+    public String printMainPage(ModelMap model) {
         model.addAttribute("messages", userService.listUsers());
         return "mainPage";
     }
 
     @GetMapping(value = "add")
-    public ModelAndView newUser() {
+    public ModelAndView printAdd() {
         User user = new User();
         ModelAndView mav = new ModelAndView("add");
         mav.addObject("user", user);
@@ -60,8 +60,9 @@ public class AdminController {
     public String update(@RequestParam("username") String username,
                          @RequestParam("city") String city,
                          @RequestParam("age") Integer age,
+                         @RequestParam("password") String password,
                          @RequestParam("id") Long id) {
-        userService.updateUser(username, age, city, id);
+        userService.updateUser(username, age, city, id,password);
         return "redirect:/admin/test";
     }
 

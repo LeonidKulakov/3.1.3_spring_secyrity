@@ -13,7 +13,7 @@ public interface UserService extends UserDetailsService {
 
     void add(User user);
 
-    void updateUser(String username, Integer age, String city, Long id);
+    void updateUser(String username, Integer age, String city, Long id,String password);
 
     void delete(Long id);
     User findByUsername(String username);

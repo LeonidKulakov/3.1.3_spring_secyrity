@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+import ru.kata.spring.boot_security.demo.security.UserPrincipal;
 
 import java.util.Collection;
 import java.util.List;
@@ -40,35 +41,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String username, Integer age, String city, Long id) {
+    public void updateUser(String username, Integer age, String city, Long id,String password) {
         User user = userRepository.findById(id).get();
         user.setUsername(username);
         user.setAge(age);
         user.setCity(city);
+        user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
     }
 
     @Override
     public void delete(Long id) {
-        System.out.println(222);
         userRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-    }
-
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
-        return user;
+        return new UserPrincipal(user);
     }
 }
