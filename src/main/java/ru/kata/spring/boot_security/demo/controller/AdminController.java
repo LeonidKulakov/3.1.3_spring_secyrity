@@ -20,7 +20,7 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
-    private RoleService roleService;
+    private final RoleService roleService;
 
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -37,11 +37,8 @@ public class AdminController {
         User user = new User();
         ModelAndView mav = new ModelAndView("add");
         mav.addObject("user", user);
-
         List<Role> roles = roleService.findAll();
-
         mav.addObject("allRoles", roles);
-
         return mav;
     }
 

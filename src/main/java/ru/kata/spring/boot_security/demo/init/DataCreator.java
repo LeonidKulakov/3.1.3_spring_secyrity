@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -10,7 +9,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Component
 public class DataCreator implements CommandLineRunner {
-
 
     private final RoleRepository roleRepository;
     private final UserService userService;
