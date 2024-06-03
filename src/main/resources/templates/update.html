@@ -61,14 +61,15 @@
 
 <body>
 <div class="main">
-    <form action="http://localhost:8080/update" method="POST">
+
+    <form action="http://localhost:8080/admin/update" th:object="${user}" method="POST">
         <label for="id"
         >ID пользователя:</label
         >
         <input
                 type="number"
                 id="id"
-                name="id"
+                th:field="*{id}"
                 required
         />
 
@@ -78,7 +79,7 @@
         <input
                 type="text"
                 id="username"
-                name="username"
+                th:field="*{username}"
                 required
         />
 
@@ -88,16 +89,16 @@
         <input
                 type="text"
                 id="city"
-                name="city"
+                th:field="*{city}"
                 required
         />
         <label for="password"
-        >Новый город:</label
+        >Новый пароль:</label
         >
         <input
                 type="text"
                 id="password"
-                name="password"
+                th:field="*{password}"
                 required
         />
 
@@ -106,9 +107,19 @@
         <input
                 type="number"
                 id="age"
-                name="age"
+                th:field="*{age}"
                 required
         />
+        <p>
+            <label>Roles:
+                <input type="checkbox" name="roles"
+                       th:each="role : ${allRoles}"
+                       th:text="${role.name}"
+                       th:value="${role.id}"
+                       th:field="*{roles}"
+                />
+            </label>
+        </p>
 
         <button type="submit">
             Изменить данные

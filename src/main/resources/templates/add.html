@@ -61,9 +61,6 @@
 
 <body>
 <div class="main">
-    <th:block th:each="msg : ${messages}">
-        <h2 th:text="${msg}"></h2>
-    </th:block>
     <form action="http://localhost:8080/admin/add" th:object="${user}" method="POST">
         <label for="username"
         >Имя пользователя:</label

@@ -9,7 +9,7 @@ public interface UserService {
 
     void add(User user);
 
-    void updateUser(String username, Integer age, String city, Long id,String password);
+    void updateUser(User user);
 
     void delete(Long id);
     User findByUsername(String username);

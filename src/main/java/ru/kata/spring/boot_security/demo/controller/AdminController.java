@@ -26,6 +26,7 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
+
     @GetMapping(value = "test")
     public String printMainPage(ModelMap model) {
         model.addAttribute("messages", userService.listUsers());
@@ -49,17 +50,18 @@ public class AdminController {
     }
 
     @GetMapping(value = "update")
-    public String printUpdate() {
-        return "update";
+    public ModelAndView printUpdate() {
+        User user = new User();
+        ModelAndView mav = new ModelAndView("update");
+        mav.addObject("user", user);
+        List<Role> roles = roleService.findAll();
+        mav.addObject("allRoles", roles);
+        return mav;
     }
 
     @PostMapping(value = "update")
-    public String update(@RequestParam("username") String username,
-                         @RequestParam("city") String city,
-                         @RequestParam("age") Integer age,
-                         @RequestParam("password") String password,
-                         @RequestParam("id") Long id) {
-        userService.updateUser(username, age, city, id,password);
+    public String update(User user) {
+        userService.updateUser(user);
         return "redirect:/admin/test";
     }
 
